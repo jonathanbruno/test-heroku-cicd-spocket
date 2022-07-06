@@ -1,0 +1,31 @@
+version: "3"
+services:
+  # DATABASE
+  postgres:
+    image: postgres:9.6.8
+    environment:
+      POSTGRES_DB: test_heroku_api_development
+      POSTGRES_USER: test_heroku_db_user
+      POSTGRES_PASSWORD: test_heroku_db_pass
+    depends_on:
+      - "redis"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres_db_data:/var/lib/postgresql/data:cached"
+
+  # IN MEMORY DATABASE
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass test_heroku_redis_pass
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis_data:/var/lib/redis/data"
+
+volumes:
+  postgres_db_data:
+  es_db_data_771:
+  redis_data:
+  mongo_db_data:
+  minio_data:
